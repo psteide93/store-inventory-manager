@@ -10,6 +10,7 @@ category.addEventListener("change", (event) => {
   if (itemCategory === "Sulfuras-Hand-of-Ragnaros") {
     qualityInput.value = 80;
     qualityInput.max = 80
+    qualityInput.min = 80
   } else {
     qualityInput.max = 50;
   }

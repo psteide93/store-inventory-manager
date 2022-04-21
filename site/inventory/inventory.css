@@ -1,0 +1,6 @@
+.inventory{
+    margin: 128px 64px;
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5em;
+}
