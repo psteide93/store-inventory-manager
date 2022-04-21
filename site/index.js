@@ -1,7 +1,7 @@
 const form = document.querySelector("form");
 const category = form.querySelector("#item-category");
 const p = document.querySelector("p");
-const localStorageContent = localStorage.getItem("listOfItems")
+const localStorageContent = localStorage.getItem("listOfItems");
 
 category.addEventListener("change", (event) => {
   const selector = form.querySelector("#item-category");
@@ -9,10 +9,11 @@ category.addEventListener("change", (event) => {
   const qualityInput = form.querySelector("#quality");
   if (itemCategory === "Sulfuras-Hand-of-Ragnaros") {
     qualityInput.value = 80;
-    qualityInput.max = 80
-    qualityInput.min = 80
+    qualityInput.max = 80;
+    qualityInput.min = 80;
   } else {
     qualityInput.max = 50;
+    qualityInput.min = 0;
   }
 });
 
@@ -32,14 +33,16 @@ form.addEventListener("submit", (event) => {
     dateAdded,
   };
   console.log(item);
-  if (localStorageContent === null){
+  if (localStorageContent === null) {
     listOfItems = [];
-  }else {
-    listOfItems = JSON.parse(localStorageContent)
+  } else {
+    listOfItems = JSON.parse(localStorageContent);
   }
-  listOfItems.push(item)
-  localStorage.setItem("listOfItems", JSON.stringify(listOfItems))
-  form.classList.add("hide")
-  p.classList.remove("hide")
-  setTimeout(function(){location.reload()}, 1000)
+  listOfItems.push(item);
+  localStorage.setItem("listOfItems", JSON.stringify(listOfItems));
+  form.classList.add("hide");
+  p.classList.remove("hide");
+  setTimeout(function () {
+    location.reload();
+  }, 1000);
 });

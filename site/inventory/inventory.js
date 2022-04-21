@@ -1,6 +1,8 @@
 console.log(JSON.parse(localStorage.getItem("listOfItems")))
 
 const inventoryItems = JSON.parse(localStorage.getItem("listOfItems"))
+     //.sort((a,b) => a.quality - b.quality )
+
 const ul = document.querySelector(".inventory")
 
 inventoryItems.forEach(item => {
