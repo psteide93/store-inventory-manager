@@ -8,10 +8,10 @@ inventoryItems.forEach(item => {
     const li = document.createElement("li")
     li.innerHTML = `
          <h2>${item.itemName}</h2>
-         <p>${item.itemCategory}</p>
-         <p>${item.sellInDays}</p>
-         <p>${item.quality}</p>
-         <p>${item.dateAdded}</p>
+         <p>Category:${item.itemCategory}</p>
+         <p>Sell in ${item.sellInDays} days</p>
+         <p>Quality ${item.quality}</p>
+         <p>Date added:${item.dateAdded}</p>
     `
    ul.append(li)
 

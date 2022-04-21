@@ -1,6 +1,6 @@
 const form = document.querySelector("form");
 const category = form.querySelector("#item-category");
-const p = form.querySelector("p");
+const p = document.querySelector("p");
 const localStorageContent = localStorage.getItem("listOfItems")
 
 category.addEventListener("change", (event) => {
@@ -38,4 +38,7 @@ form.addEventListener("submit", (event) => {
   }
   listOfItems.push(item)
   localStorage.setItem("listOfItems", JSON.stringify(listOfItems))
+  form.classList.add("hide")
+  p.classList.remove("hide")
+  setTimeout(function(){location.reload()}, 1000)
 });
