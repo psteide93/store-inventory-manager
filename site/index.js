@@ -9,6 +9,7 @@ category.addEventListener("change", (event) => {
   const qualityInput = form.querySelector("#quality");
   if (itemCategory === "Sulfuras-Hand-of-Ragnaros") {
     qualityInput.value = 80;
+    qualityInput.max = 80
   } else {
     qualityInput.max = 50;
   }
