@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
+    />
+    <link rel="stylesheet" href="index.css" />
+    <script defer src="index.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <form>
+        <label for="item-name">Item Name</label>
+        <input type="text" id="item-name" name="item-name" required />
+        <label for="item-category">Item Catergory</label>
+        <select name="item-category" id="item-category">
+          <option value="5-Dexterity-Vest">+5 Dexterity Vest</option>
+          <option value="Aged-Brie">Aged Brie</option>
+          <option value="Elixir-of-the-Mongoose">Elixir of the Mongoose</option>
+          <option value="Sulfuras-Hand-of-Ragnaros">
+            Sulfuras, Hand of Ragnaros
+          </option>
+          <option value="Backstage-passes">
+            Backstage passes to a TAFKAL80ETC concert
+          </option>
+          <option value="Conjured-Mana-Cake">Conjured Mana Cake</option>
+        </select>
+        <label for="sell-in">Sell In Days</label>
+        <input type="number" id="sell-in" name="sell-in" required />
+        <label for="quality">Quality</label>
+        <input type="number" id="quality" name="quality" required />
+        <label for="date">Date Added</label>
+        <input type="date" id="date" name="date" required />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>
