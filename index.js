@@ -1,6 +1,7 @@
 const form = document.querySelector("form");
 const category = form.querySelector("#item-category");
 const p = form.querySelector("p");
+const localStorageContent = localStorage.getItem("listOfItems")
 
 category.addEventListener("change", (event) => {
   const selector = form.querySelector("#item-category");
@@ -28,6 +29,12 @@ form.addEventListener("submit", (event) => {
     quality,
     dateAdded,
   };
-
   console.log(item);
+  if (localStorageContent === null){
+    listOfItems = [];
+  }else {
+    listOfItems = JSON.parse(localStorageContent)
+  }
+  listOfItems.push(item)
+  localStorage.setItem("listOfItems", JSON.stringify(listOfItems))
 });
