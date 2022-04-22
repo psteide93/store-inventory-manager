@@ -6,7 +6,7 @@ const itemNameField = document.querySelector("#item-name");
 
 itemNameField.addEventListener("input", (event) => {
   const qualityInput = form.querySelector("#quality");
-  if (itemNameField.value.includes("sulfuras")) {
+  if (itemNameField.value.toLowerCase().includes("sulfuras")) {
     qualityInput.value = 80;
     qualityInput.max = 80;
     qualityInput.min = 80;
@@ -47,15 +47,13 @@ form.addEventListener("submit", (event) => {
 });
 
 function categoryGenerator(name) {
-  if (name.includes("sulfuras")) {
+  if (name.toLowerCase().includes("sulfuras")) {
     return "Sulfuras";
-  } else if (name.includes("aged brie")) {
+  } else if (name.toLowerCase().includes("aged brie")) {
     return "Aged Brie";
-  } else if (name.includes("sulfuras")) {
-    return "Sulfuras";
-  } else if (name.includes("backstage pass")) {
+  } else if (name.toLowerCase().includes("backstage pass")) {
     return "Backstage pass";
-  } else if (name.includes("conjured")) {
+  } else if (name.toLowerCase().includes("conjured")) {
     return "Conjured";
   } else {
     return "None";

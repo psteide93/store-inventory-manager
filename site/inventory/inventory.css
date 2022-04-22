@@ -1,3 +1,19 @@
+input {
+    border-radius: 4px;
+    padding: 16px;
+    height: 32px;
+    border: none;
+  }
+
+  input, label{
+      display: block;
+  }
+
+  input{
+      margin-top: 16px;
+      margin-bottom: 8px;
+  }
+
 
 .inventory{
     margin: 128px 64px;
@@ -5,3 +21,4 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 5em;
 }
+

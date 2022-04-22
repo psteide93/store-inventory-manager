@@ -9,13 +9,11 @@ div {
 
 label,
 input,
-select,
 button {
   display: block;
 }
 
-input,
-select {
+input{
   margin-bottom: 16px;
 }
 
@@ -28,19 +26,4 @@ input {
 
 .hide {
   display: none;
-}
-
-button {
-  background-color: var(--blue);
-  border: none;
-  width: 72px;
-  padding: 12px;
-  border-radius: 4px;
-  font-weight: bold;
-  box-shadow: inset 0 0 0 0 var(--baby-blue);
-  transition: ease-out 300ms;
-}
-
-button:hover {
-  box-shadow: inset 72px 0 0 0 var(--midnight-blue);
 }
