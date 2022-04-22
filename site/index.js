@@ -1,13 +1,12 @@
 const form = document.querySelector("form");
-const category = form.querySelector("#item-category");
 const p = document.querySelector("p");
 const localStorageContent = localStorage.getItem("listOfItems");
+const itemNameField = document.querySelector("#item-name");
 
-category.addEventListener("change", (event) => {
-  const selector = form.querySelector("#item-category");
-  const itemCategory = selector.value;
+
+itemNameField.addEventListener("input", (event) => {
   const qualityInput = form.querySelector("#quality");
-  if (itemCategory === "Sulfuras-Hand-of-Ragnaros") {
+  if (itemNameField.value.includes("sulfuras")) {
     qualityInput.value = 80;
     qualityInput.max = 80;
     qualityInput.min = 80;
@@ -21,14 +20,14 @@ form.addEventListener("submit", (event) => {
   event.preventDefault();
   const formData = new FormData(event.target);
   const itemName = formData.get("item-name");
-  const itemCategory = formData.get("item-category");
   const sellInDays = formData.get("sell-in");
   const quality = formData.get("quality");
   const dateAdded = formData.get("date");
+  const itemCategory = categoryGenerator(itemName)
   const item = {
     itemName,
-    itemCategory,
     sellInDays,
+    itemCategory,
     quality,
     dateAdded,
   };
@@ -46,3 +45,19 @@ form.addEventListener("submit", (event) => {
     location.reload();
   }, 1000);
 });
+
+function categoryGenerator(name) {
+  if (name.includes("sulfuras")) {
+    return "Sulfuras";
+  } else if (name.includes("aged brie")) {
+    return "Aged Brie";
+  } else if (name.includes("sulfuras")) {
+    return "Sulfuras";
+  } else if (name.includes("backstage pass")) {
+    return "Backstage pass";
+  } else if (name.includes("conjured")) {
+    return "Conjured";
+  } else {
+    return "None";
+  }
+}

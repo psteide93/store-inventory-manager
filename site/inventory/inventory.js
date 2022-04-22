@@ -6,7 +6,6 @@ const inventoryItems = JSON.parse(localStorage.getItem("listOfItems"))
 const ul = document.querySelector(".inventory")
 
 inventoryItems.forEach(item => {
-    //change this from innerHTML to text content
     const li = document.createElement("li")
     const itemHeader = document.createElement("h2")
     const div = document.createElement("div")
@@ -20,5 +19,13 @@ inventoryItems.forEach(item => {
     itemHeader.append(div)
 li.append(itemHeader)
    ul.append(li)
+
+})
+
+const resetButton = document.querySelector("button")
+
+resetButton.addEventListener("click", () =>{
+     localStorage.clear()
+     location.reload()
 
 })
