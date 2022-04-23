@@ -1,6 +1,7 @@
 const localStorageItems = JSON.parse(localStorage.getItem("listOfItems"));
 const ul = document.querySelector(".inventory");
 const form = document.querySelector("form");
+const clearButton = document.querySelector("#clear");
 const resetButton = document.querySelector("#reset");
 const p = document.querySelector("p");
 const div = document.querySelector("div");
@@ -148,8 +149,12 @@ function arrayGenerator(startingPoint, endingPoint) {
   return array;
 }
 
-resetButton.addEventListener("click", () => {
+clearButton.addEventListener("click", () => {
   localStorage.clear();
+  location.reload();
+});
+
+resetButton.addEventListener("click", () => {
   location.reload();
 });
 
