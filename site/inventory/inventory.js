@@ -2,6 +2,14 @@ const localStorageItems = JSON.parse(localStorage.getItem("listOfItems"));
 const ul = document.querySelector(".inventory");
 const form = document.querySelector("form");
 const resetButton = document.querySelector("#reset");
+const p = document.querySelector("p")
+
+if (localStorageItems === null){
+  form.classList.add("hide")
+}else{
+  form.classList.remove("hide")
+  p.classList.add("hide")
+}
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -34,10 +42,10 @@ function inventoryGenerator(listOfItems) {
     itemBody.classList.add("item-body");
     itemHeader.textContent = upperCaseFirstLetter(itemName);
     itemBody.innerHTML = `
-         <p>Category: ${itemCategory}</p>
-         <p>Sell in ${sellInDays} days</p>
-         <p>Quality: ${qualityChecker(qualityAdjustor(item))}</p>
-         <p>Date added:</p> 
+         <p><b>Category:</b> ${itemCategory}</p>
+         <p>Sell in <b>${sellInDays}</b> days</p>
+         <p><b>Quality:</b> ${qualityChecker(qualityAdjustor(item))}</p>
+         <p><b>Date added</b>:</p> 
          <p>${dateFormater(dateAdded)}</p>
     `;
     itemContainer.append(itemHeader);

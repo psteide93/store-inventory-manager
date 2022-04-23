@@ -31,7 +31,6 @@ form.addEventListener("submit", (event) => {
     quality,
     dateAdded,
   };
-  console.log(item);
   if (localStorageContent === null) {
     listOfItems = [];
   } else {
@@ -43,7 +42,7 @@ form.addEventListener("submit", (event) => {
   p.classList.remove("hide");
   setTimeout(function () {
     location.reload();
-  }, 1000);
+  }, 500);
 });
 
 function categoryGenerator(name) {

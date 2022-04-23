@@ -24,6 +24,11 @@ input {
   border: none;
 }
 
+#added{
+  font-size: 128px;
+  font-weight: bold;
+}
+
 .hide {
   display: none;
 }

@@ -14,26 +14,26 @@
     <title>Document</title>
   </head>
   <body>
-      <header>
-        <h1>Gilded Rose: Inventory Manager</h1>
-          <nav>
-              <ul>
-                <li class="active"><a href="./../../index.html">Home</a></li>
-                  <li><a href= "inventory.html">Inventory</a></li>
-              </ul>
-          </nav>
-      </header>
-      <h2>Inventory List</h2>
+    <header>
+      <h1>Gilded Rose: Inventory Manager</h1>
+      <nav>
+        <ul>
+          <li class="active"><a href="./../../index.html">Home</a></li>
+          <li><a href="inventory.html">Inventory</a></li>
+        </ul>
+      </nav>
+    </header>
+    <h2>Inventory List</h2>
 
-      <form action>
-        <label for="date">Date of report:</label>
-        <input type="date" id="date" name="date" required />
-        <button type="submit">Generate Report</button>
-      </form>
+    <form class="list-generator">
+      <label for="date">Date of report:</label>
+      <input type="date" id="date" name="date" required />
+      <button type="submit">Generate</button>
+    </form>
+    <p class="warning">There is currently nothing listed in the inventory, please add via the home page</p>
 
-      <ul class="inventory">
+    <ul class="inventory"></ul>
 
-      </ul>
-      <button id="reset">Reset</button>
+    <button id="reset">Clear Inventory</button>
   </body>
 </html>

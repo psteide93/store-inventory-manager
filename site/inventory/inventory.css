@@ -14,7 +14,31 @@ input {
       margin-bottom: 8px;
   }
 
+  label{
+      font-weight: bold;
+  }
 
+  .list-generator{
+      margin-top: 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+  }
+
+  .list-generator button{
+      width: 120px;
+  }
+
+  .list-generator button:hover{
+    box-shadow: inset 120px 0 0 0 var(--midnight-blue);
+  }
+
+.warning{
+    margin-left: 64px;
+    margin-top: 24px;
+    font-size: 24px;
+}
 .inventory{
     margin: 128px 64px;
     display:grid;
@@ -22,3 +46,40 @@ input {
     gap: 5em;
 }
 
+h3{
+    background-color: var(--midnight-blue);
+    font-size: 24px;
+    font-weight: bold;
+    padding: 8px;
+}
+
+.item-container{
+    width: 250px;
+}
+
+.item-body{
+    background-color: white;
+    padding: 16px;
+}
+
+.item-body p{
+    margin-bottom: 8px;
+
+}
+
+b{
+    font-weight: bold;
+}
+
+.hide{
+    display:none;
+}
+
+#reset{
+    width: fit-content;
+    margin-left: 32px;
+}
+
+#reset:hover{
+    box-shadow: inset 120px 0 0 0 var(--midnight-blue);
+}
