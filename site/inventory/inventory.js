@@ -33,7 +33,7 @@ function inventoryGenerator(listOfItems) {
   listOfItems
   .filter(listItem => listItem.sellInDays <= listItem.startingSellinInDays)
   .forEach((item) => {
-    const { itemCategory, itemName, sellInDays, dateAdded } = item;
+    const { itemCategory, itemName, sellInDays, dateAdded, daysInSystem } = item;
     const li = document.createElement("li");
     const itemContainer = document.createElement("div");
     itemContainer.classList.add("item-container");
@@ -43,7 +43,7 @@ function inventoryGenerator(listOfItems) {
     itemHeader.textContent = upperCaseFirstLetter(itemName);
     itemBody.innerHTML = `
          <p><b>Category:</b> ${itemCategory}</p>
-         <p>Sell in <b>${sellInDays}</b> days</p>
+         <p>Sell in <b>${ sellInDaysGenerator(item)}</b> days</p>
          <p><b>Quality:</b> ${qualityChecker(qualityAdjustor(item))}</p>
          <p><b>Date added</b>:</p> 
          <p>${dateFormater(dateAdded)}</p>
@@ -54,6 +54,16 @@ function inventoryGenerator(listOfItems) {
     li.append(itemContainer);
     ul.append(li);
   });
+}
+
+function sellInDaysGenerator(item){
+  const {sellInDays, daysInSystem, itemCategory } = item
+  if(itemCategory === "Sulfuras"){
+    return daysInSystem + sellInDays
+  }else{
+    return sellInDays
+  }
+
 }
 
 function qualityAdjustor(item) {
