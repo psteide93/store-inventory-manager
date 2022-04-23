@@ -20,15 +20,6 @@ form.addEventListener("submit", (event) => {
       daysInSystem,
     };
   });
-  // .map(inventoryItemWithDaysPassed => {
-  //   const { sellInDays, daysInSystem} = inventoryItemWithDaysPassed
-  //   const timePassed = timePassedCalculator(sellInDays, daysInSystem)
-  //   return {
-  //     ...inventoryItemWithDaysPassed,
-  //     timePassed
-  //   }
-  // })
-  console.log(completedInventory);
   inventoryGenerator(completedInventory);
 });
 
@@ -38,11 +29,8 @@ function inventoryGenerator(listOfItems) {
       itemCategory,
       itemName,
       sellInDays,
-      quality,
       dateAdded,
-      daysInSystem,
     } = item;
-    console.log(item);
     const li = document.createElement("li");
     const itemContainer = document.createElement("div");
     itemContainer.classList.add("item-container");
@@ -78,12 +66,6 @@ function dateFormater(dateString) {
   return new Date(dateString).toString().slice(3, 15);
 }
 
-// function timePassedCalculator(sellInDays, daysInSystem) {
-//   console.log(sellInDays, daysInSystem)
-//   console.log(sellInDays - daysInSystem)
-//   return  sellInDays - daysInSystem;
-// }
-
 function qualityAdjustor(item) {
   const {
     itemCategory,
@@ -93,50 +75,71 @@ function qualityAdjustor(item) {
     quality,
   } = item;
   let adjustedQuality = quality + 1;
+  const days = arrayGenerator(sellInDays, startingSellinInDays);
 
   switch (itemCategory) {
     case "None":
-      const days = arrayGenerator(sellInDays, startingSellinInDays);
       for (const day of days) {
-        if(day > 0){
-          console.log(day)
-          adjustedQuality = adjustedQuality - 1
-          console.log(adjustedQuality)
-
-        }else{
-          console.log(day)
-          adjustedQuality = adjustedQuality - 2
-          console.log(adjustedQuality)
+        if (day > 0) {
+          adjustedQuality = adjustedQuality - 1;
+        } else {
+          adjustedQuality = adjustedQuality - 2;
         }
+      }
+      return adjustedQuality;
 
-       
-}}return adjustedQuality
+    case "Conjured":
+      for (const day of days) {
+        if (day > 0) {
+          adjustedQuality = (adjustedQuality - 1) * 2;
+        } else {
+          adjustedQuality = (adjustedQuality - 2) * 2;
+        }
+      }
+      return adjustedQuality;
+
+    case "Backstage pass":
+      if (sellInDays > 0){
+      adjustedQuality = adjustedQuality -2
+      for (const day of days) {
+        if (day > 10) {
+          adjustedQuality = adjustedQuality + 1;
+        } else if (day <= 10 && day > 5) {
+          adjustedQuality = adjustedQuality + 2;
+        } else if (day <= 5 && day > 0) {
+          adjustedQuality = adjustedQuality + 3;
+        } else {
+          adjustedQuality = 0;
+        }
+      }
+      return adjustedQuality;
+    } else{
+      return 0
+    }
+
+    case "Aged Brie":
+      return quality + daysInSystem;
+
+    case "Sulfuras":
+      return 80;
+  }
 }
 
-
-// case "Aged Brie":
-//   return quality + daysInSystem;
-
-// case "Conjured":
-//   return quality - daysInSystem * 2;
-
-// case "Sulfuras":
-//   return 80;
-
-// case "Backstage pass":
-//   if(daysPassed >= 10){
-//    return quality
-//   }else if(){
-
-//   }else{
-
-//   }
+function qualityAdjustorLoop(array, value){
+  for (const number of array) {
+    if (number > 0) {
+      value = value - 1;
+    } else {
+      value = value - 2;
+    }
+  }
+  return value;
+}
 
 function qualityChecker(quality) {
-  console.log(quality);
   if (quality < 0) {
     return 0;
-  } else if (quality > 50) {
+  } else if (quality > 50 && quality !== 80) {
     return 50;
   } else if (quality === 80) {
     return 80;
@@ -150,34 +153,5 @@ function arrayGenerator(startingPoint, endingPoint) {
   for (let counter = startingPoint; counter <= endingPoint; counter++) {
     array.push(counter);
   }
-  console.log(array);
   return array;
 }
-
-// [
-//   {
-//     itemName: "Snake",
-//     sellInDays: 7,
-//     itemCategory: "None",
-//     quality: 43,
-//     dateAdded: "2022-04-01",
-//     daysInSystem: 8,
-//   },
-// ][
-//   {
-//     itemName: "Snake",
-//     sellInDays: -7,
-//     itemCategory: "None",
-//     quality: 43,
-//     dateAdded: "2022-04-01",
-//     startingSellinInDays: 15,
-//     daysInSystem: 22,
-//   }
-// ];
-
-// if (sellInDays < 0) {
-//   console.log("yikes")
-//   return quality - (daysInSystem * 2);
-// } else {
-//   return quality - daysInSystem;
-// }
