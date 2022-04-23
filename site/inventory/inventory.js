@@ -1,6 +1,4 @@
-console.log("local storage", JSON.parse(localStorage.getItem("listOfItems")));
-
-const inventoryItems = JSON.parse(localStorage.getItem("listOfItems"));
+const localStorageItems = JSON.parse(localStorage.getItem("listOfItems"));
 const ul = document.querySelector(".inventory");
 const form = document.querySelector("form");
 const resetButton = document.querySelector("#reset");
@@ -9,7 +7,7 @@ form.addEventListener("submit", (event) => {
   event.preventDefault();
   const formData = new FormData(event.target);
   const reportDate = formData.get("date");
-  const completedInventory = inventoryItems.map((inventoryItem) => {
+  const completedInventory = localStorageItems.map(inventoryItem => {
     const daysInSystem =
       (new Date(reportDate) - new Date(inventoryItem.dateAdded)) / 86400000;
     return {
@@ -24,13 +22,10 @@ form.addEventListener("submit", (event) => {
 });
 
 function inventoryGenerator(listOfItems) {
-  listOfItems.forEach((item) => {
-    const {
-      itemCategory,
-      itemName,
-      sellInDays,
-      dateAdded,
-    } = item;
+  listOfItems
+  .filter(listItem => listItem.sellInDays <= listItem.startingSellinInDays)
+  .forEach((item) => {
+    const { itemCategory, itemName, sellInDays, dateAdded } = item;
     const li = document.createElement("li");
     const itemContainer = document.createElement("div");
     itemContainer.classList.add("item-container");
@@ -53,19 +48,6 @@ function inventoryGenerator(listOfItems) {
   });
 }
 
-resetButton.addEventListener("click", () => {
-  localStorage.clear();
-  location.reload();
-});
-
-function upperCaseFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-function dateFormater(dateString) {
-  return new Date(dateString).toString().slice(3, 15);
-}
-
 function qualityAdjustor(item) {
   const {
     itemCategory,
@@ -74,11 +56,12 @@ function qualityAdjustor(item) {
     startingSellinInDays,
     quality,
   } = item;
-  let adjustedQuality = quality + 1;
   const days = arrayGenerator(sellInDays, startingSellinInDays);
+  let adjustedQuality
 
   switch (itemCategory) {
     case "None":
+      adjustedQuality = quality + 1
       for (const day of days) {
         if (day > 0) {
           adjustedQuality = adjustedQuality - 1;
@@ -89,33 +72,34 @@ function qualityAdjustor(item) {
       return adjustedQuality;
 
     case "Conjured":
+       adjustedQuality = quality + 2
       for (const day of days) {
         if (day > 0) {
-          adjustedQuality = (adjustedQuality - 1) * 2;
+          adjustedQuality = (adjustedQuality - 2);
         } else {
-          adjustedQuality = (adjustedQuality - 2) * 2;
+          adjustedQuality = (adjustedQuality - 4);
         }
       }
       return adjustedQuality;
 
     case "Backstage pass":
-      if (sellInDays > 0){
-      adjustedQuality = adjustedQuality -2
-      for (const day of days) {
-        if (day > 10) {
-          adjustedQuality = adjustedQuality + 1;
-        } else if (day <= 10 && day > 5) {
-          adjustedQuality = adjustedQuality + 2;
-        } else if (day <= 5 && day > 0) {
-          adjustedQuality = adjustedQuality + 3;
-        } else {
-          adjustedQuality = 0;
+      if (sellInDays > 0) {
+        adjustedQuality = quality - 1;
+        for (const day of days) {
+          if (day > 10) {
+            adjustedQuality = adjustedQuality + 1;
+          } else if (day <= 10 && day > 5) {
+            adjustedQuality = adjustedQuality + 2;
+          } else if (day <= 5 && day > 0) {
+            adjustedQuality = adjustedQuality + 3;
+          } else {
+            adjustedQuality = 0;
+          }
         }
+        return adjustedQuality;
+      } else {
+        return 0;
       }
-      return adjustedQuality;
-    } else{
-      return 0
-    }
 
     case "Aged Brie":
       return quality + daysInSystem;
@@ -125,16 +109,6 @@ function qualityAdjustor(item) {
   }
 }
 
-function qualityAdjustorLoop(array, value){
-  for (const number of array) {
-    if (number > 0) {
-      value = value - 1;
-    } else {
-      value = value - 2;
-    }
-  }
-  return value;
-}
 
 function qualityChecker(quality) {
   if (quality < 0) {
@@ -154,4 +128,17 @@ function arrayGenerator(startingPoint, endingPoint) {
     array.push(counter);
   }
   return array;
+}
+
+resetButton.addEventListener("click", () => {
+  localStorage.clear();
+  location.reload();
+});
+
+function upperCaseFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function dateFormater(dateString) {
+  return new Date(dateString).toString().slice(3, 15);
 }
