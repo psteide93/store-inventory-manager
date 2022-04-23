@@ -2,9 +2,12 @@ const form = document.querySelector("form");
 const p = document.querySelector("p");
 const localStorageContent = localStorage.getItem("listOfItems");
 const itemNameField = document.querySelector("#item-name");
-
+const qualityFields = document.querySelectorAll(".quality");
 
 itemNameField.addEventListener("input", (event) => {
+  qualityFields.forEach((qualityField) => {
+    qualityField.classList.remove("hide");
+  });
   const qualityInput = form.querySelector("#quality");
   if (itemNameField.value.toLowerCase().includes("sulfuras")) {
     qualityInput.value = 80;
@@ -23,7 +26,7 @@ form.addEventListener("submit", (event) => {
   const sellInDays = formData.get("sell-in");
   const quality = formData.get("quality");
   const dateAdded = formData.get("date");
-  const itemCategory = categoryGenerator(itemName)
+  const itemCategory = categoryGenerator(itemName);
   const item = {
     itemName,
     sellInDays,

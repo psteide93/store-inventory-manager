@@ -2,20 +2,21 @@ const localStorageItems = JSON.parse(localStorage.getItem("listOfItems"));
 const ul = document.querySelector(".inventory");
 const form = document.querySelector("form");
 const resetButton = document.querySelector("#reset");
-const p = document.querySelector("p")
+const p = document.querySelector("p");
+const div = document.querySelector("div");
 
-if (localStorageItems === null){
-  form.classList.add("hide")
-}else{
-  form.classList.remove("hide")
-  p.classList.add("hide")
+if (localStorageItems === null) {
+  form.classList.add("hide");
+} else {
+  form.classList.remove("hide");
+  p.classList.add("hide");
 }
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   const formData = new FormData(event.target);
   const reportDate = formData.get("date");
-  const completedInventory = localStorageItems.map(inventoryItem => {
+  const completedInventory = localStorageItems.map((inventoryItem) => {
     const daysInSystem =
       (new Date(reportDate) - new Date(inventoryItem.dateAdded)) / 86400000;
     return {
@@ -27,43 +28,43 @@ form.addEventListener("submit", (event) => {
     };
   });
   inventoryGenerator(completedInventory);
+  form.classList.add("hide");
+  createHeadingText(reportDate);
 });
 
 function inventoryGenerator(listOfItems) {
   listOfItems
-  .filter(listItem => listItem.sellInDays <= listItem.startingSellinInDays)
-  .forEach((item) => {
-    const { itemCategory, itemName, sellInDays, dateAdded, daysInSystem } = item;
-    const li = document.createElement("li");
-    const itemContainer = document.createElement("div");
-    itemContainer.classList.add("item-container");
-    const itemHeader = document.createElement("h3");
-    const itemBody = document.createElement("div");
-    itemBody.classList.add("item-body");
-    itemHeader.textContent = upperCaseFirstLetter(itemName);
-    itemBody.innerHTML = `
-         <p><b>Category:</b> ${itemCategory}</p>
-         <p>Sell in <b>${ sellInDaysGenerator(item)}</b> days</p>
+    .filter((listItem) => listItem.sellInDays <= listItem.startingSellinInDays)
+    .forEach((item) => {
+      const { itemName, dateAdded } = item;
+      const li = document.createElement("li");
+      const itemContainer = document.createElement("div");
+      itemContainer.classList.add("item-container");
+      const itemHeader = document.createElement("h3");
+      const itemBody = document.createElement("div");
+      itemBody.classList.add("item-body");
+      itemHeader.textContent = upperCaseFirstLetter(itemName);
+      itemBody.innerHTML = `
+         <p>Sell in <b>${sellInDaysGenerator(item)}</b> days</p>
          <p><b>Quality:</b> ${qualityChecker(qualityAdjustor(item))}</p>
          <p><b>Date added</b>:</p> 
          <p>${dateFormater(dateAdded)}</p>
     `;
-    itemContainer.append(itemHeader);
-    itemContainer.append(itemBody);
+      itemContainer.append(itemHeader);
+      itemContainer.append(itemBody);
 
-    li.append(itemContainer);
-    ul.append(li);
-  });
+      li.append(itemContainer);
+      ul.append(li);
+    });
 }
 
-function sellInDaysGenerator(item){
-  const {sellInDays, daysInSystem, itemCategory } = item
-  if(itemCategory === "Sulfuras"){
-    return daysInSystem + sellInDays
-  }else{
-    return sellInDays
+function sellInDaysGenerator(item) {
+  const { sellInDays, daysInSystem, itemCategory } = item;
+  if (itemCategory === "Sulfuras") {
+    return daysInSystem + sellInDays;
+  } else {
+    return sellInDays;
   }
-
 }
 
 function qualityAdjustor(item) {
@@ -75,13 +76,13 @@ function qualityAdjustor(item) {
     quality,
   } = item;
   const days = arrayGenerator(sellInDays, startingSellinInDays);
-  let adjustedQuality
+  let adjustedQuality;
 
   switch (itemCategory) {
     case "None":
-      adjustedQuality = quality + 1
+      adjustedQuality = quality + 1;
       for (const day of days) {
-        if (day > 0) {
+        if (day >= 0) {
           adjustedQuality = adjustedQuality - 1;
         } else {
           adjustedQuality = adjustedQuality - 2;
@@ -90,12 +91,12 @@ function qualityAdjustor(item) {
       return adjustedQuality;
 
     case "Conjured":
-       adjustedQuality = quality + 2
+      adjustedQuality = quality + 2;
       for (const day of days) {
-        if (day > 0) {
-          adjustedQuality = (adjustedQuality - 2);
+        if (day >= 0) {
+          adjustedQuality = adjustedQuality - 2;
         } else {
-          adjustedQuality = (adjustedQuality - 4);
+          adjustedQuality = adjustedQuality - 4;
         }
       }
       return adjustedQuality;
@@ -111,7 +112,7 @@ function qualityAdjustor(item) {
           } else if (day <= 5 && day > 0) {
             adjustedQuality = adjustedQuality + 3;
           } else {
-            adjustedQuality = 0;
+            break;
           }
         }
         return adjustedQuality;
@@ -126,7 +127,6 @@ function qualityAdjustor(item) {
       return 80;
   }
 }
-
 
 function qualityChecker(quality) {
   if (quality < 0) {
@@ -159,4 +159,13 @@ function upperCaseFirstLetter(string) {
 
 function dateFormater(dateString) {
   return new Date(dateString).toString().slice(3, 15);
+}
+
+function createHeadingText(reportDate) {
+  const inventoryHeader = document.createElement("p");
+  inventoryHeader.classList.add("heading");
+  inventoryHeader.textContent = `Inventory as of ${dateFormater(
+    new Date(reportDate)
+  )}`;
+  div.append(inventoryHeader);
 }

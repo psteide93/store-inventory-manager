@@ -13,7 +13,7 @@ button {
   display: block;
 }
 
-input{
+input {
   margin-bottom: 16px;
 }
 
@@ -24,8 +24,8 @@ input {
   border: none;
 }
 
-#added{
-  font-size: 128px;
+#added {
+  font-size: 64px;
   font-weight: bold;
 }
 
