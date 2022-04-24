@@ -44,6 +44,7 @@ form.addEventListener("submit", (event) => {
   form.classList.add("hide");
   p.classList.remove("hide");
   setTimeout(function () {
+    form.reset()
     location.reload();
   }, 500);
 });
