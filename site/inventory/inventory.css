@@ -75,15 +75,11 @@ b{
     display:none;
 }
 
-#clear{
+#clear, #reset{
     width: fit-content;
     margin-left: 32px;
 }
 
-#reset{
-    width: fit-content;
-    margin-left: 32px;
-}
 
 #clear:hover, #reset:hover{
     box-shadow: inset 120px 0 0 0 var(--midnight-blue);
