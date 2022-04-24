@@ -77,26 +77,28 @@ function qualityAdjustor(item) {
     quality,
   } = item;
   const days = arrayGenerator(sellInDays, startingSellinInDays);
-  let adjustedQuality;
+  let adjustedQuality = quality;
 
   switch (itemCategory) {
     case "None":
-      adjustedQuality = quality + 1;
       for (const day of days) {
-        if (day >= 0) {
+        if (day === sellInDays) {
+          adjustedQuality;
+        } else if (day > 0) {
           adjustedQuality = adjustedQuality - 1;
-        } else {
+        } else if (day <= 0) {
           adjustedQuality = adjustedQuality - 2;
         }
       }
       return adjustedQuality;
 
     case "Conjured":
-      adjustedQuality = quality + 2;
       for (const day of days) {
-        if (day >= 0) {
+        if (day === sellInDays) {
+          adjustedQuality;
+        } else if (day > 0) {
           adjustedQuality = adjustedQuality - 2;
-        } else {
+        } else if (day <= 0) {
           adjustedQuality = adjustedQuality - 4;
         }
       }
@@ -104,9 +106,10 @@ function qualityAdjustor(item) {
 
     case "Backstage pass":
       if (sellInDays > 0) {
-        adjustedQuality = quality - 1;
         for (const day of days) {
-          if (day > 10) {
+          if (day === sellInDays) {
+            adjustedQuality;
+          } else if (day > 10) {
             adjustedQuality = adjustedQuality + 1;
           } else if (day <= 10 && day > 5) {
             adjustedQuality = adjustedQuality + 2;
