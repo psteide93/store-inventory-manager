@@ -75,7 +75,12 @@ b{
     display:none;
 }
 
-#clear, #reset{
+#clear{
+    width: fit-content;
+    margin-left: 32px;
+}
+
+#reset{
     width: fit-content;
     margin-left: 32px;
 }
